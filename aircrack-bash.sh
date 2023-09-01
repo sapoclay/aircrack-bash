@@ -131,7 +131,8 @@ case $option in
         echo "Descargando diccionario"
         wget https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt
         read -p "Presiona Enter para iniciar el ataque..."
-        gnome-terminal -- sudo aircrack-ng -b $Handshake -w rockyou.txt "$archivo.cap"
+        sudo chmod 777 $archivo*
+        gnome-terminal -- sudo aircrack-ng -b $Handshake -w rockyou.txt "$archivo-01.cap"
         ;;
     6)
         echo "Si intentas iniciar el modo monitor en una interfaz inalámbrica, probablemente verás el siguiente mensaje:"
