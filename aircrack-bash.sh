@@ -56,6 +56,7 @@ case $option in
         echo "Matar procesos que puedan intervenir"
         echo "-------------------------"
         sudo airmon-ng check kill
+        # Control de errores
         if [ $? -ne 0 ]; then
                 echo "Error al matar los procesos."
                 read -p "Presiona Enter para continuar..."
@@ -79,9 +80,11 @@ case $option in
 
         if [ -n "$monitor_interface" ]; then
             echo "La interfaz Wi-Fi en modo monitor es: $monitor_interface"
+            echo ""
             read -p "Presiona Enter para continuar..."
         else
             echo "No se encontró ninguna interfaz Wi-Fi en modo monitor."
+            echo ""
             read -p "Presiona Enter para continuar..."
         fi
         echo "Iniciando la interfaz:"
@@ -98,10 +101,6 @@ case $option in
         read -p "Presiona Enter para continuar..."
         read -p "Escribe el nombre del archivo donde guardar los paquetes (sin extensión): " archivo
         read -p "Presiona Enter para continuar..."
-
-        sudo mkdir ataque
-        chmod 777 -R ataque
-        cd ataque
 
         gnome-terminal -- sudo airodump-ng -c $Chanel --bssid $bssid -w $archivo $monitor_interface
         ;;
