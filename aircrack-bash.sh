@@ -25,7 +25,7 @@ instalar_paquete_sinosta() {
 # Comprobar e instalar paquetes necesarios
 instalar_paquete_sinosta aircrack-ng
 instalar_paquete_sinosta wget
-instalar_paquete_sinosta dbus
+instalar_paquete_sinosta dbus-x11
 
 # Obtener el nombre de la interfaz inalámbrica
 wifi_interface=$(iwconfig 2>/dev/null | grep -o '^[a-zA-Z0-9]*')
